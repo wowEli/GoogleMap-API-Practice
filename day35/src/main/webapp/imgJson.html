@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="js/jQuery-3.6.0.min.js"></script>
+<script type="text/javascript">
+	$.ajax({
+		type : "GET",
+		url : "imgData.json", // 내가 원하는 데이터
+		dataType : "json", // 이 파일의 타입은 json이야
+		success : function(data) {
+			console.log("성공!"); // 데이터를 잘 받았는지 로그 남기기
+			var elem = "";
+			$.each(data, function(index, obj) { // obj는 json파일에 저장된 개별객체를 의미한다 each메서드 두번째 인자의 값을 데이터로 받아옴
+				elem += "<h2>" + obj.name + "</h2>";
+				elem += "<a href='"+obj.link+"'><img alt='"+obj.name+"' src='img/"+obj.imgName+"'></a>";
+			}); // jQuery의 each() = data의 개수만큼 함수를 실행해줘
+			$("div #img").append(elem); //tbody에 데이터를 append 할거야
+		}, // 성공한다면 이 함수를 실행할거고 , 인자data는 data.json의 전체데이터를 의미
+		error : function(error) {
+			console.log(error.status);
+			console.log(error.errorText);
+		} // 실패한다면 이 함수를 실행할거야
+	});
+</script>
+</head>
+<body>
+
+	<div id="wrapper">
+		<h1>ajax() 메서드 실습</h1>
+
+		<div id="img">
+
+			
+
+		</div>
+	</div>
+
+</body>
+</html>

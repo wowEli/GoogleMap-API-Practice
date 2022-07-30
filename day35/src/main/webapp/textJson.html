@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ajax()메서드와 JSON데이터</title>
+
+<style type="text/css">
+	table{
+		width:100%;
+		border: 1px solid black;
+	}
+	th, td{
+		border: 1px solid black;
+		text-align: center;
+	}
+</style>
+<!-- ajax를 사용하려면 jquery를 먼저 사용해야한다 -->
+<script src="js/jQuery-3.6.0.min.js"></script>
+<script type="text/javascript">
+	$.ajax({
+		
+		type: "GET", // get 방식과 post 방식
+		url: "data.json", // 내가 원하는 데이터
+		dataType:"json", // 이 파일의 타입은 json이야
+		success: function(data){
+			console.log("성공!"); // 데이터를 잘 받았는지 로그 남기기
+			var elem="";
+			$.each(data,function(index, obj){ // obj는 json파일에 저장된 개별객체를 의미한다 each메서드 두번째 인자의 값을 데이터로 받아옴
+				elem+= "<tr>";
+				elem+= "<td>"+obj.name+"</td>";
+				elem+= "<td>"+obj.score1+"</td>";
+				elem+= "<td>"+obj.score2+"</td>";
+				elem+= "<td>"+obj.score3+"</td>";
+				elem+= "<td>"+obj.score4+"</td>";
+				elem+= "</tr>";
+			}); // jQuery의 each() = data의 개수만큼 함수를 실행해줘
+			$("table tbody").append(elem); //tbody에 데이터를 append 할거야
+		}, // 성공한다면 이 함수를 실행할거고 , 인자data는 data.json의 전체데이터를 의미
+		error: function(error){
+			console.log(error.status);
+			console.log(error.errorText);
+		} // 실패한다면 이 함수를 실행할거야
+			
+	});
+	// jQuery 라이브러리가 가진
+	// 비동기처리를 담당하는 (실시간으로 데이터를로드하는) 메서드
+</script>
+</head>
+<body>
+
+<table>
+	<caption>학생들의 시험점수</caption>
+	<thead>
+		<tr>
+			<th>이름</th>
+			<th>시험1</th>
+			<th>시험2</th>
+			<th>시험3</th>
+			<th>시험4</th>
+		</tr>
+	</thead>
+	<tbody>
+		
+	</tbody>
+	
+</table>
+
+
+</body>
+</html>
